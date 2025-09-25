@@ -1,0 +1,19 @@
+
+id: high-cpu-burst
+description: Pod CPU > 90% for 5m and error rate rising
+priority: 10
+tags: [auto, k8s]
+match:
+  any:
+    - event.metric == "cpu_usage" and event.value > 0.9 and event.window == "5m"
+    - event.type == "ErrorRateSpike" and event.value > 0.05
+actions:
+  - type: k8s.scale
+    target: deployment:{event.labels.app}
+    replicas: +1
+    cooldown: 600
+    only_if: env != "prod"
+  - type: slack.notify
+    message: |
+      ⚠️ High CPU burst or error rate spike detected for {event.labels.app} in {env}.
+      Proposed action: scale +1 (dry-run={dry_run}).

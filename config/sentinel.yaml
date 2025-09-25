@@ -1,0 +1,16 @@
+
+# Global Infra Sentinel configuration
+log_level: INFO
+dry_run_default: true
+approvals:
+  # Rules matching any of these tags require approval unless overridden
+  require_for_tags: ["risky", "prod-only"]
+  # Static allowlist for automated approvals (e.g., for non-prod)
+  auto_approve_environments: ["dev", "staging"]
+sinks:
+  - type: file
+    path: results/audit.jsonl
+providers:
+  file_events:
+    type: file
+    path: demo/events.jsonl

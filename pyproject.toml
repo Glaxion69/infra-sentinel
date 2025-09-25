@@ -1,0 +1,29 @@
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "infra-sentinel"
+version = "0.1.0"
+description = "SRE incident prevention + auto-remediation toolkit (skeleton)"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{name="Sagar Padhi"}]
+dependencies = [
+  "PyYAML>=6.0.1",
+  "requests>=2.31.0",
+  "pydantic>=2.7.0"
+]
+
+[project.scripts]
+infra-sentinel = "infra_sentinel.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "flake8>=6"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

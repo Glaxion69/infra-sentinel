@@ -1,0 +1,23 @@
+
+id: http-5xx-rollback
+description: Roll back a canary if 5xx > 2% for 3m during rollout
+priority: 30
+tags: [risky, prod-only, k8s]
+match:
+  all:
+    - event.type == "Rollout"
+    - event.stage == "canary"
+    - event.metric == "http_5xx_rate"
+    - event.value > 0.02
+    - event.window == "3m"
+actions:
+  - type: approval.require
+    reason: "Rollback in prod requires approval."
+  - type: k8s.rollback_deployment
+    target: deployment:{event.labels.app}
+    strategy: "previous-revision"
+    cooldown: 600
+  - type: slack.notify
+    message: |
+      🔁 Requested rollback for {event.labels.app} canary (5xx={event.value:.2%}).
+      Waiting for approval…

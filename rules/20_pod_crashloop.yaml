@@ -1,0 +1,19 @@
+
+id: crashloop-restart
+description: Restart a CrashLoopBackOff pod and mark node for inspection if repeated
+priority: 20
+tags: [auto, k8s]
+match:
+  all:
+    - event.reason == "CrashLoopBackOff"
+    - event.count >= 3
+actions:
+  - type: k8s.restart_pod
+    target: pod:{event.involvedObject.name}
+    cooldown: 300
+  - type: http.post
+    url: "/tickets"
+    json:
+      title: "CrashLoopBackOff on {event.involvedObject.name}"
+      severity: "medium"
+      service: "{event.labels.app}"

@@ -1,0 +1,11 @@
+
+kubernetes:
+  enabled: true
+  context: default
+  namespace: default
+slack:
+  enabled: false
+  webhook_url: "https://hooks.slack.com/services/T000/B000/XXXX"
+http:
+  enabled: true
+  base_url: "https://example.com/hooks"

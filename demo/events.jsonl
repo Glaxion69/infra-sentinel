@@ -1,0 +1,4 @@
+
+{"timestamp":"2025-09-25T09:00:00Z","type":"Metric","metric":"cpu_usage","value":0.92,"window":"5m","labels":{"app":"checkout"},"env":"staging"}
+{"timestamp":"2025-09-25T09:02:00Z","type":"K8s","reason":"CrashLoopBackOff","count":3,"involvedObject":{"kind":"Pod","name":"api-7c9d8"},"labels":{"app":"api"},"env":"dev"}
+{"timestamp":"2025-09-25T09:05:00Z","type":"Rollout","stage":"canary","metric":"http_5xx_rate","value":0.031,"window":"3m","labels":{"app":"payments"},"env":"prod"}

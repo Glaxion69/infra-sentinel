@@ -1,0 +1,26 @@
+{
+  "deployments": {
+    "checkout": {
+      "replicas": 3
+    },
+    "payments": {
+      "replicas": 5
+    }
+  },
+  "pods": [
+    {
+      "name": "api-7c9d8",
+      "status": "CrashLoopBackOff"
+    }
+  ],
+  "nodes": [
+    {
+      "name": "node-a",
+      "taints": []
+    },
+    {
+      "name": "node-b",
+      "taints": []
+    }
+  ]
+}
